@@ -1,9 +1,15 @@
 import express from "express";
 import { PORT, mongodbURL } from "./config.js";
 import mongoose from 'mongoose';
+import cors from 'cors';
+import cookieParser from "cookie-parser";
+import { User } from "./models/userModel.js";
+import regRoutes from './routes/regRoutes.js';
 
 const app = express();
-
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
 app.get('/', (req, res) => {
     console.log(req);
@@ -12,10 +18,13 @@ app.get('/', (req, res) => {
 });
 
 
+
+
 mongoose
     .connect(mongodbURL)
     .then(() => {
         console.log('App connected to db');
+        app.use('/registration', regRoutes)
         app.listen(PORT, () => {
             console.log(`App is listening to port ${PORT}`);
         });

@@ -11,11 +11,11 @@ class UserService {
             const sameName = await User.findOne({username});
 
             if (candidate) {
-                throw new ApiError(400, `A user with mail address ${email} already exists`);
+                throw ApiError.BadRequest(`A user with mail address ${email} already exists`);
             }
 
             if (sameName) {
-                throw new ApiError(400, `A user named ${username} already exists`);
+                throw ApiError.BadRequest(`A user named ${username} already exists`);
             }
 
             const hashPassword = await bcrypt.hash(password, 3);
@@ -27,8 +27,7 @@ class UserService {
             
             return {...tokens, user: userDto};
         } catch (error) {
-            console.error(error);
-            throw new ApiError(500, 'Server error');
+            throw error
         }
     }
 
@@ -36,11 +35,11 @@ class UserService {
     async login(email, password) {
         const user = await User.findOne({email})
         if (!user) {
-            throw new ApiError(400, 'User with this email address was not found');
+            throw ApiError.BadRequest('User with this email address was not found');
         }
         const isPassEquals = await bcrypt.compare(password, user.password);
         if (!isPassEquals) {
-            throw ApiError(400, 'Wrong password');
+            throw ApiError.BadRequest('Wrong password');
         }
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({...userDto});

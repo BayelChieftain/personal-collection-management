@@ -5,6 +5,7 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 import { User } from "./models/userModel.js";
 import regRoutes from './routes/regRoutes.js';
+import errorMiddleware from './middlewares/errorMiddleware.js';
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ mongoose
     .then(() => {
         console.log('App connected to db');
         app.use('/registration', regRoutes)
+        app.use(errorMiddleware);
         app.listen(PORT, () => {
             console.log(`App is listening to port ${PORT}`);
         });

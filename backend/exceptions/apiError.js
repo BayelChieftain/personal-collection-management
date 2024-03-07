@@ -1,4 +1,4 @@
-export default class ApiError extends Error {
+class ApiError extends Error {
     status;
     errors;
 
@@ -16,3 +16,5 @@ export default class ApiError extends Error {
         return new ApiError(400, message, errors);
     }
 }
+
+export default ApiError;

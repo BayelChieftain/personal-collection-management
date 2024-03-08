@@ -3,7 +3,6 @@ import { PORT, mongodbURL } from "./config.js";
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-import { User } from "./models/userModel.js";
 import regRoutes from './routes/regRoutes.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
 
@@ -17,8 +16,6 @@ app.get('/', (req, res) => {
 
     return res.status(234).send("WELCOME");
 });
-
-
 
 
 mongoose

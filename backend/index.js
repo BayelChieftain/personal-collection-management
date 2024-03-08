@@ -25,7 +25,7 @@ mongoose
     .connect(mongodbURL)
     .then(() => {
         console.log('App connected to db');
-        app.use('/registration', regRoutes)
+        app.use('/api', regRoutes)
         app.use(errorMiddleware);
         app.listen(PORT, () => {
             console.log(`App is listening to port ${PORT}`);

@@ -2,7 +2,8 @@ import express from 'express';
 import { userController } from '../controllers/userController.js';
 import { body } from 'express-validator';
 import authMiddleware from '../middlewares/authMiddleware.js';
-
+import roleMiddleware from '../middlewares/roleMiddleware.js';
+import roleFromDbMiddleware from '../middlewares/roleFromDbMiddleware.js';
 
 const router = express.Router();
 
@@ -18,6 +19,6 @@ router.post(
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
-router.get('/users', authMiddleware, userController.getUsers);
+router.get('/users', authMiddleware, roleFromDbMiddleware, roleMiddleware('admin'), userController.getUsers); // only admin can use t route
 
 export default router;

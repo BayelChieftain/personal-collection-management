@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'Caveat': ["Caveat", "sens-serif"],
+        'Oswald': ["Oswald", "sens-serif"],
+        'Alatsi': ['Alatsi', "sens-serif"],
+        'NSans': ['Noto+Sans', "sens-serif"]
+      }
+    },
   },
   plugins: [],
 }

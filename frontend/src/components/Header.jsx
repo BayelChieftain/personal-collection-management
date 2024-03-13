@@ -19,10 +19,10 @@ const Header = () => {
             className="border p-2 rounded"
           />
         </div>
-        <Link to="/login" className="mr-4 text-slate-400">
+        <Link to="/login" className="mr-4 rounded-full py-2 px-5 text-slate-400 hover:bg-neutral-100 hover:text-slate-950">
           Log in
         </Link>
-        <Link to="/register" className="mr-4 rounded-full px-4 py-2 bg-purple-500 text-white">
+        <Link to="/registration" className="mr-4 rounded-full px-4 py-2 bg-purple-500 text-white hover:bg-purple-600">
           Sign up
         </Link>
       </div>

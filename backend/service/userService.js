@@ -11,7 +11,7 @@ class UserService {
             const sameName = await User.findOne({username});
 
             if (candidate) {
-                throw ApiError.BadRequest(`A user with mail address ${email} already exists`);
+                throw ApiError.BadRequest(`A user with email address ${email} already exists`);
             }
 
             if (sameName) {

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const Header = () => {
   return (
     <header className="text-white p-4 flex justify-between items-center border-2 border-white border-b-zinc-300/50">
       <div>
-        <Link to="/" className="font-Caveat text-3xl font-bold text-purple-500">
-          BAYcollect
-        </Link>
+        <Logo />
       </div>
       <div className="flex items-center">
       <div className="ml-4 mr-3 text-slate-400">

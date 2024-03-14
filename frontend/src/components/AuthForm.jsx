@@ -20,13 +20,13 @@ const AuthForm = ({onSubmit, register, handleSubmit, formState: { errors }, isSi
       placeholder="email" 
       {...register("email")}  
       className={ brClasses } />
-  
+
       <input 
       type='password'
       placeholder="password" 
       {...register("password", { required: true })}  
       className={ brClasses } />
-  
+      
       {errors.exampleRequired && <span>This field is required</span>}
   
       <input 

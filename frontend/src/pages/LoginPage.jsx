@@ -4,12 +4,13 @@ import $api from '../http';
 import { setUser } from '../store/slice/userSlice';
 import { useDispatch } from 'react-redux';
 import AuthForm from '../components/AuthForm';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const LoginPage = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,6 +28,7 @@ const LoginPage = () => {
         refreshToken: response.data.refreshToken,
         user: response.data.user
       }));
+      navigate('/')
     } catch (error) {
       console.log(error)
     }
@@ -35,20 +37,22 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-      <div>
-      <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Log in</h2>
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Welcome back!</h2>
+          <p className='text-center'>Log in to your account.</p>
+        </div>
+        
+        <AuthForm
+          onSubmit={onSubmit}
+          handleSubmit={handleSubmit}
+          register={register}
+          formState={{ errors }}
+          btnText={'Log in'}
+        />
+        <p>
+        New here? <Link className="text-lg font-bold hover:underline" to='/registration'>Create an account</Link>
+        </p>
       </div>
-      <AuthForm
-        onSubmit={onSubmit}
-        handleSubmit={handleSubmit}
-        register={register}
-        formState={{ errors }}
-        btnText={'Log in'}
-      />
-      <p>
-                Or, <Link className="text-lg font-bold hover:underline" to='/registration'>Sign up</Link>
-            </p>
-            </div>
      
     </div>
   )

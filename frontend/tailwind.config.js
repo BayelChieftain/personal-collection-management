@@ -10,7 +10,8 @@ export default {
         'Caveat': ["Caveat", "sens-serif"],
         'Oswald': ["Oswald", "sens-serif"],
         'Alatsi': ['Alatsi', "sens-serif"],
-        'NSans': ['Noto+Sans', "sens-serif"]
+        'NSans': ['Noto+Sans', "sens-serif"],
+        'Poppins': ['Poppins', "sens-serif"],
       }
     },
   },

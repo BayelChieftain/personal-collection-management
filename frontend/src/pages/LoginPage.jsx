@@ -15,7 +15,7 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -46,11 +46,11 @@ const LoginPage = () => {
           onSubmit={onSubmit}
           handleSubmit={handleSubmit}
           register={register}
-          formState={{ errors }}
+          formState={{ errors, isValid }}
           btnText={'Log in'}
         />
         <p>
-        New here? <Link className="text-lg font-bold hover:underline" to='/registration'>Create an account</Link>
+        New here? <Link className="text-lg text-cyan-600 font-bold hover:underline" to='/registration'>Create an account</Link>
         </p>
       </div>
      

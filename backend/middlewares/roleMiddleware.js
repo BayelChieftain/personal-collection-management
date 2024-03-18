@@ -12,7 +12,7 @@ export default function (requiredRole) {
   
         next();
       } catch (e) {
-        return next(ApiError.UnauthorizedError());
+        return next(ApiError.BadRequest('You do not have the required privileges to access this resource.'));
       }
     };
   }

@@ -69,10 +69,23 @@ class UserService {
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
         return {...tokens, user: userDto}
     }
-
+// admin actions
     async getAllUsers() {
         const users = await User.find();
         return users;
+    }
+    async updateUserRole(userId, newRole) {
+        try {
+            const user = await User.findById(userId);
+            if (!user) {
+                throw ApiError.BadRequest("User not found");
+            }
+            user.role = newRole;
+            await user.save();
+            return user;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

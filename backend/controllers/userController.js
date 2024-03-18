@@ -41,8 +41,6 @@ class UserController {
         }
     }
 
-
-
     async refresh(req, res, next) {
         try {
             const {refreshToken} = req.cookies;
@@ -53,13 +51,23 @@ class UserController {
             next(e);
         }
     }
-
+// admin actions
     async getUsers(req, res, next) {
         try {
             const users = await userService.getAllUsers();
             return res.json(users);
         } catch (e) {
             next(e);
+        }
+    }
+
+    async updateUserRole(req, res, next) {
+        try {
+            const { userId, newRole } = req.body;
+            const updateUser = await userService.updateUserRole(userId, newRole);
+            return res.json(updateUser);
+        } catch (error) {
+            next(error)
         }
     }
 }

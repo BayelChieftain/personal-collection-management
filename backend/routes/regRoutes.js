@@ -20,5 +20,6 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, roleFromDbMiddleware, roleMiddleware('admin'), userController.getUsers); // only admin can use t route
+router.post('/updateUserRole', authMiddleware, roleFromDbMiddleware, roleMiddleware('admin'), userController.updateUserRole);
 
 export default router;

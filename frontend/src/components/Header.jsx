@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import LogoutButn from './LogoutButn';
+import { useAuth } from '../hooks/userAuth';
 
 const Header = () => {
+  const { isAuth } = useAuth();
+
+
+
   return (
     <header className="text-white p-4 flex justify-between items-center border-2 border-white border-b-zinc-300/50">
       <div>
@@ -24,6 +30,7 @@ const Header = () => {
         <Link to="/registration" className="mr-4 rounded-full px-4 py-2 bg-purple-500 text-white hover:bg-purple-600">
           Sign up
         </Link>
+        { isAuth ? <LogoutButn /> : null}
       </div>
     </header>
   );

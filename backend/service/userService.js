@@ -74,6 +74,7 @@ class UserService {
         const users = await User.find();
         return users;
     }
+    
     async updateUserRole(userId, newRole) {
         try {
             const user = await User.findById(userId);
@@ -82,6 +83,20 @@ class UserService {
             }
             user.role = newRole;
             await user.save();
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteUser(userId) {
+        try {
+            const user = await User.findById(userId);
+            if (!user) {
+                throw ApiError.BadRequest('User not found');
+            }
+            
+            await User.findByIdAndDelete(userId);
             return user;
         } catch (error) {
             throw error;

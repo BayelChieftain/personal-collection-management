@@ -70,6 +70,16 @@ class UserController {
             next(error)
         }
     }
+    
+    async deleteUser(req, res, next) {
+        try {
+            const { userId } = req.params;
+            const deleteUserRes = await userService.deleteUser(userId);
+            return res.json(deleteUserRes);
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 export const userController = new UserController();

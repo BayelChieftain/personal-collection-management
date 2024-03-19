@@ -21,5 +21,5 @@ router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, roleFromDbMiddleware, roleMiddleware('admin'), userController.getUsers); // only admin can use t route
 router.post('/updateUserRole', authMiddleware, roleFromDbMiddleware, roleMiddleware('admin'), userController.updateUserRole);
-
+router.delete('/deleteUser/:userId', authMiddleware, roleFromDbMiddleware, roleMiddleware('admin'), userController.deleteUser);
 export default router;

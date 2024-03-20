@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AuthForm from '../components/AuthForm'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/slice/userSlice';
 import $api from '../http';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import ErrorNotification from '../components/ErrorNotification';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const {
     register,
@@ -27,8 +29,15 @@ const RegisterPage = () => {
       }));
       navigate('/')
     } catch (error) {
-      console.log(error)
+      if (error.response && error.response.data && error.response.data.message) {
+        const errorMessage = error.response.data.message;
+        setErrorMessage(errorMessage); 
+      };
     }
+  };
+
+  const clearError = () => {
+    setErrorMessage(null); 
   };
   
   return (
@@ -48,6 +57,8 @@ const RegisterPage = () => {
           isSignUp = {true}
           btnText={'Create account'}
         />
+
+        {errorMessage && <ErrorNotification errorMessage={errorMessage} onClose={clearError} />}
            
           <p>
           Already have an account? <Link className="text-lg text-cyan-600 font-bold hover:underline" to='/login'>Log in</Link>

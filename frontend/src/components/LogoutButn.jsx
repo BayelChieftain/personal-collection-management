@@ -17,7 +17,7 @@ const LogoutButn = () => {
 
   return (
     <button
-      className="mr-4 rounded-full py-2 px-5 text-slate-400 hover:bg-neutral-100 hover:text-slate-950"
+      className="mr-4 rounded-full py-2 px-5 text-slate-400 hover:bg-neutral-100 hover:text-slate-950 bg-neutral-200/80"
       onClick={handleLogout}
     >
       Log out

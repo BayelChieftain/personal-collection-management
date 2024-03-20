@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import $api from '../http';
 import { useAuth } from '../hooks/userAuth';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
@@ -45,6 +46,8 @@ const AdminPage = () => {
   };
 
   return isAuth ? (
+    <>
+    <Header />
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Admin Page</h1>
       <p className="font-Poppins text-rose-800 text-sm">Current admin: {users[0] ? user.username : null}</p>
@@ -87,6 +90,7 @@ const AdminPage = () => {
         </tbody>
       </table>
     </div>
+    </>
   ) :
   (
     <h1>YOU ARE NOT AUTHORIZED</h1>

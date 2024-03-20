@@ -22,7 +22,6 @@ const LoginPage = () => {
     try {
       const response = await $api.post('/login', data);
       console.log(response)
-      response.data.accessToken
       dispatch(setUser({
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,

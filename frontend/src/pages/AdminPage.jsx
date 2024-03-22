@@ -19,10 +19,7 @@ const AdminPage = () => {
 
         setUsers(response.data)
     } catch (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-            alert(error.response.data.message);
-            navigate('/')
-        } 
+        navigate('/')
     }
   };
 

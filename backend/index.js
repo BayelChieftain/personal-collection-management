@@ -5,6 +5,7 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 import regRoutes from './routes/regRoutes.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
+import collectionRoutes from './routes/collectionRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
 
     return res.status(234).send("WELCOME");
 });
+
+app.use('/api', collectionRoutes)
 
 
 mongoose

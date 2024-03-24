@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import regRoutes from './routes/regRoutes.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
 import collectionRoutes from './routes/collectionRoutes.js';
+import itemRoutes from './routes/itemRouter.js';
 
 const app = express();
 app.use(express.json());
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', collectionRoutes)
-
+app.use('/api', itemRoutes)
 
 mongoose
     .connect(mongodbURL)

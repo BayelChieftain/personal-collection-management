@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post('/collections', collectionController.createCollection);
 router.get('/collections', collectionController.getCollections);
-router.get('/collections/:id', collectionController.getCollectionById);
-router.put('/collections/:id', collectionController.updateCollection);
-router.delete('/collections/:id', collectionController.deleteCollection);
+router.get('/collections/:collectionId', collectionController.getCollectionById);
+router.put('/collections/:collectionId', collectionController.updateCollection);
+router.delete('/collections/:collectionId', collectionController.deleteCollection);
 
 export default router;

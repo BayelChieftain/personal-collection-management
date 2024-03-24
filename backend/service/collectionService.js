@@ -1,10 +1,10 @@
-import { Collection } from '../models/collectionModel.js';
 import ApiError from '../exceptions/apiError.js';
+import { Collection } from '../models/collectionModel.js';
 
 class CollectionService {
-  async createCollection(name, description, topic, image, customFields) {
+  async createCollection(name, description, category, imageUrl, fields, owner) {
     try {
-        const collection = await Collection.create({ name, description, topic, image, customFields });
+        const collection = await Collection.create({ name, description, category, imageUrl, fields, owner });
         return collection;
       } catch (error) {
         throw error;
@@ -15,7 +15,7 @@ class CollectionService {
     try {
         const collection = await Collection.findByIdAndUpdate(collectionId, updatedFields, { new: true });
         if (!collection) {
-          throw ApiError.NotFoundError('Collection not found');
+          throw ApiError.BadRequest('Collection not found');
         }
         return collection;
       } catch (error) {
@@ -27,7 +27,7 @@ class CollectionService {
     try {
         const collection = await Collection.findByIdAndDelete(collectionId);
         if (!collection) {
-          throw ApiError.NotFoundError('Collection not found');
+          throw ApiError.BadRequest('Collection not found');
         }
         return collection;
       } catch (error) {
@@ -48,7 +48,7 @@ class CollectionService {
     try {
         const collection = await Collection.findById(collectionId);
         if (!collection) {
-          throw ApiError.NotFoundError('Collection not found');
+          throw ApiError.BadRequest('Collection not found');
         }
         return collection;
       } catch (error) {

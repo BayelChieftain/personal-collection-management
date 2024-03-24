@@ -4,8 +4,8 @@ import { collectionService } from '../service/collectionService.js';
 class CollectionController {
   async createCollection(req, res, next) {
     try {
-      const { name, description, topic, image, customFields } = req.body;
-      const collection = await collectionService.createCollection(name, description, topic, image, customFields);
+      const { name, description, category, imageUrl = null, fields, owner } = req.body;
+      const collection = await collectionService.createCollection(name, description, category, imageUrl, fields, owner);
       return res.json(collection);
     } catch (error) {
       next(error);
@@ -15,8 +15,8 @@ class CollectionController {
   async updateCollection(req, res, next) {
     try {
       const { collectionId } = req.params;
-      const { name, description, topic, image, customFields } = req.body;
-      const updatedCollection = await collectionService.updateCollection(collectionId, { name, description, topic, image, customFields });
+      const { name, description, category, imageUrl, fields, owner } = req.body;
+      const updatedCollection = await collectionService.updateCollection(collectionId, { name, description, category, imageUrl, fields, owner });
       return res.json(updatedCollection);
     } catch (error) {
       next(error);

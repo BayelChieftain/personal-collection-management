@@ -1,34 +1,39 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
-const CollectionSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-  },
-  topic: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  customFields: [{
-    name: {
-      type: String,
-      required: true,
-    },
+const collectionSchema = mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  category: { type: String, enum: ['Books', 'Signs', 'Silverware', 'Paintings'], required: true },
+  imageUrl: { type: String }, 
+  fields: [{
+    name: { type: String, required: true },
     type: {
       type: String,
-      enum: ['integer', 'string', 'multilineText', 'boolean', 'date'],
-      required: true,
-    },
-    defaultValue: {
-      type: mongoose.Schema.Types.Mixed,
-    },
+      enum: ['Integer', 'String', 'Text', 'Boolean', 'Date'],
+      required: true
+    }
   }],
-}, { timestamps: true });
+  owner: { type: Schema.Types.ObjectId, ref: 'User', required: true }
+  },
+  { timestamps: true }
+);
 
-export const Collection = mongoose.model('Collection', CollectionSchema);
+const itemSchema = mongoose.Schema({
+  name: { type: String, required: true },
+  tags: [{ type: String }],
+  collectionRef: { type: Schema.Types.ObjectId, ref: 'Collection', required: true },
+  dynamicFields: [{
+    name: { type: String, required: true },
+    value: { type: Schema.Types.Mixed } 
+  }]
+  },
+  { timestamps: true }
+);
+
+export const Collection = mongoose.model('Collection', collectionSchema);
+export const Item = mongoose.model('Item', itemSchema);
+
+
+
+
+

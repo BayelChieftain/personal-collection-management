@@ -1,9 +1,14 @@
-import ApiError from '../exceptions/apiError.js';
+import { validationResult } from 'express-validator';
 import { collectionService } from '../service/collectionService.js';
+import ApiError from '../exceptions/apiError.js';
 
 class CollectionController {
   async createCollection(req, res, next) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Error during validation', errors.array()));
+      }
       const { name, description, category, imageUrl = null, fields, owner } = req.body;
       const collection = await collectionService.createCollection(name, description, category, imageUrl, fields, owner);
       return res.json(collection);

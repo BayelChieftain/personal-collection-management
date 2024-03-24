@@ -1,9 +1,14 @@
+import { validationResult } from 'express-validator';
 import ApiError from '../exceptions/apiError.js';
 import { itemService } from '../service/itemService.js';
 
 class ItemController {
   async createItem(req, res, next) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Error during validation', errors.array()));
+      }
       const { name, tags, collectionRef, dynamicFields } = req.body;
       const item = await itemService.createItem(name, tags, collectionRef, dynamicFields);
       return res.json(item);
@@ -50,6 +55,15 @@ class ItemController {
       return res.json(item);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async getItems(req, res, next) {
+    try {
+      const items = await itemService.getAllItems()
+      return res.json(items)
+    } catch (e) {
+      next(e)
     }
   }
 }

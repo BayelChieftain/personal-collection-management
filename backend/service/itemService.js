@@ -1,9 +1,13 @@
 import ApiError from '../exceptions/apiError.js';
-import { Item } from '../models/collectionModel.js';
+import { Collection, Item } from '../models/collectionModel.js';
 
 class ItemService {
   async createItem(name, tags, collectionRef, dynamicFields) {
     try {
+      const collection = await Collection.findById(collectionRef);
+      if (!collection) {
+        throw ApiError.BadRequest('Collection not found');
+      }
       const item = await Item.create({ name, tags, collectionRef, dynamicFields });
       return item;
     } catch (error) {
@@ -56,13 +60,13 @@ class ItemService {
     }
   }
 
-  async getItems(req, res, next) {
-    try {
-      const items = await itemService.getItems();
-      return res.json(items);
-    } catch (error) {
-      next(error);
-    }
+  async getAllItems() {
+   try {
+    const items = await Item.find();
+    return items;
+   } catch (er) {
+     throw er
+   }
   }
 }
 

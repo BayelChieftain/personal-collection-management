@@ -1,9 +1,14 @@
 import ApiError from '../exceptions/apiError.js';
 import { Collection } from '../models/collectionModel.js';
+import { User } from '../models/userModel.js';
 
 class CollectionService {
   async createCollection(name, description, category, imageUrl, fields, owner) {
-    try {
+    try {  
+          const user = await User.findById(owner);
+          if (!user) {
+            throw ApiError.BadRequest('User not found');
+          }
         const collection = await Collection.create({ name, description, category, imageUrl, fields, owner });
         return collection;
       } catch (error) {

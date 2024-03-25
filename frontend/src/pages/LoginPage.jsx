@@ -28,7 +28,7 @@ const LoginPage = () => {
         refreshToken: response.data.refreshToken,
         user: response.data.user
       }));
-      navigate('/')
+      navigate('/collection')
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         const errorMessage = error.response.data.message;

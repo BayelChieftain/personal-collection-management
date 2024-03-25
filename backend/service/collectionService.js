@@ -60,6 +60,15 @@ class CollectionService {
         throw error;
       }
   }
+
+  async getCollectionByOwner(userId) {
+    try {
+      const collections = await Collection.find({ owner: userId });
+      return collections;
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 export const collectionService = new CollectionService();

@@ -1,6 +1,7 @@
 import express from 'express';
 import { collectionController } from '../controllers/collectionController.js';
 import { body } from 'express-validator';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -12,10 +13,12 @@ const validateCollection = [
     body('owner').notEmpty().withMessage('Owner is required').isLength({ min: 24 }).withMessage('Invalid input')
 ];
 
-router.post('/collections', validateCollection, collectionController.createCollection);
+router.post('/collections', validateCollection, authMiddleware, collectionController.createCollection);
+router.get('/collections/:collectionId', authMiddleware, collectionController.getCollectionById);
+router.put('/collections/:collectionId', authMiddleware, collectionController.updateCollection);
+router.delete('/collections/:collectionId', authMiddleware, collectionController.deleteCollection);
+
 router.get('/collections', collectionController.getCollections);
-router.get('/collections/:collectionId', collectionController.getCollectionById);
-router.put('/collections/:collectionId', collectionController.updateCollection);
-router.delete('/collections/:collectionId', collectionController.deleteCollection);
+router.get('/collections/my/:userId', authMiddleware, collectionController.getCollectionByOwner);
 
 export default router;

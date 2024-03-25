@@ -1,6 +1,7 @@
 import express from 'express';
 import { itemController } from '../controllers/itemController.js';
 import { body } from 'express-validator';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -10,12 +11,12 @@ const validateItem = [
     body('dynamicFields').notEmpty()
 ];
 
-router.post('/collections/items', validateItem, itemController.createItem);
-router.put('/collections/items/:itemId', itemController.updateItem);
-router.delete('/collections/items/:itemId', itemController.deleteItem);
-router.get('/collections/:collectionId/items', itemController.getItemsInCollection); // get all items in col.
-router.get('/collections/items/:itemId', itemController.getItemById);
+router.post('/collections/items', validateItem, authMiddleware, itemController.createItem);
+router.put('/collections/items/:itemId', authMiddleware, itemController.updateItem);
+router.delete('/collections/items/:itemId', authMiddleware, itemController.deleteItem);
+router.get('/collections/:collectionId/items', authMiddleware, itemController.getItemsInCollection); // get all items in col.
 
+router.get('/collections/items/:itemId', itemController.getItemById);
 router.get('/items', itemController.getItems);
 
 export default router;

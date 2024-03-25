@@ -56,6 +56,16 @@ class CollectionController {
       next(error);
     }
   }
+
+  async getCollectionByOwner(req, res, next) {
+    try {
+        const { userId } = req.params;
+        const collections = await collectionService.getCollectionByOwner(userId);
+        return res.json(collections)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const collectionController = new CollectionController();

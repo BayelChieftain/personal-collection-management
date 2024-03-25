@@ -22,6 +22,7 @@ const itemSchema = mongoose.Schema({
   name: { type: String, required: true },
   tags: [{ type: String }],
   collectionRef: { type: Schema.Types.ObjectId, ref: 'Collection', required: true },
+  imageUrl: { type: String },
   dynamicFields: [{
     name: { type: String, required: true },
     value: { type: Schema.Types.Mixed } 

@@ -2,13 +2,13 @@ import ApiError from '../exceptions/apiError.js';
 import { Collection, Item } from '../models/collectionModel.js';
 
 class ItemService {
-  async createItem(name, tags, collectionRef, dynamicFields) {
+  async createItem(name, tags, collectionRef, dynamicFields, imageUrl) {
     try {
       const collection = await Collection.findById(collectionRef);
       if (!collection) {
         throw ApiError.BadRequest('Collection not found');
       }
-      const item = await Item.create({ name, tags, collectionRef, dynamicFields });
+      const item = await Item.create({ name, tags, collectionRef, dynamicFields, imageUrl });
       return item;
     } catch (error) {
       throw error;

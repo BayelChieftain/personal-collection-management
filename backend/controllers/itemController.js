@@ -9,8 +9,8 @@ class ItemController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Error during validation', errors.array()));
       }
-      const { name, tags, collectionRef, dynamicFields } = req.body;
-      const item = await itemService.createItem(name, tags, collectionRef, dynamicFields);
+      const { name, tags, collectionRef, dynamicFields, imageUrl = null } = req.body;
+      const item = await itemService.createItem(name, tags, collectionRef, dynamicFields, imageUrl);
       return res.json(item);
     } catch (error) {
       next(error);

@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import AdminPage from './pages/AdminPage';
 import CollectionPage from './pages/CollectionPage';
 import { useAuth } from './hooks/userAuth';
+import CreateCollectionPage from './pages/CreateCollectionPage';
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
       <Route path='/login' element={<LoginPage />} />
       <Route path='/adminDashboard' element={<AdminPage />} />
       { isAuth && <Route path='/collection' element={<CollectionPage />} />}
+      <Route path='/create-collection' element={<CreateCollectionPage />} />
     </Routes>
 
   )

@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import $api from '../http';
 
-const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors }, btnText, owner}) => {
+const brClasses = 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm';
+const slClasses = 'bg-gray-50 border border-purple-500 text-purple-500 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5';
+const defClasses = 'px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700'
+
+const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors, isValid }, btnText, owner}) => {
   const [fields, setFields] = useState([{ name: '', type: '' }]);
-  
+  const [file, setFile] = useState(null);
+  const [imageUrlfr, setImageUrl] = useState(null);
+
   const handleAddField = () => {
     setFields([...fields, { name: '', type: '' }]);
   };
@@ -18,25 +25,52 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors }
     newFields[index][field] = value;
     setFields(newFields);
   };
-  
 
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+    uploadFile(event.target.files[0]); 
+  };
+
+  const uploadFile = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append('imageUrl', file);
+
+      const response = await $api.post('/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      console.log('File uploaded successfully:', response.data);
+      setImageUrl(response.data); 
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
+  const handleFormSubmit = (data) => {
+    data.imageUrl = imageUrlfr;
+    onSubmit(data);
+  };
+  
     return (
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="max-w-lg mx-auto">
       <div className="mb-4">
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
-        <input type="text" id="name" {...register("name", { required: true })} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        <input type="text" id="name" {...register("name", { required: true })} className={brClasses} />
         {errors.name && <span className="text-red-500">Name is required</span>}
       </div>
 
       <div className="mb-4">
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description:</label>
-        <input type="text" id="description" {...register("description", { required: true })} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-        {errors.description && <span className="text-red-500">Description is required</span>}
+        <textarea id="description" {...register("description", { required: true })} className={brClasses} />
+        {errors.description && <span className="text-red-500">Description is required</span>}  
       </div>
 
       <div className="mb-4">
         <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category:</label>
-        <select id="category" {...register("category", { required: true })} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        <select id="category" {...register("category", { required: true })} className={slClasses}>
           <option value="">Select category</option>
           <option value="Books">Books</option>
           <option value="Signs">Signs</option>
@@ -47,8 +81,13 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors }
       </div>
 
       <div className="mb-4">
-        <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image URL:</label>
-        <input type="text" id="imageUrl" {...register("imageUrl")} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image:</label>
+        <input 
+        type="file" 
+        id="imageUrl" 
+        {...register("imageUrl")} 
+        onChange={handleFileChange} 
+        className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
       </div>
 
       <div className="mb-4">
@@ -61,13 +100,13 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors }
               {...register(`fields[${index}].name`, { required: true })}
               onChange={(event) => handleChangeField(index, 'name', event.target.value)}
               placeholder="Name"
-              className="mr-2 mt-1 block w-1/2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className={brClasses}
             />
             <select
               value={field.type}
               {...register(`fields[${index}].type`, { required: true })}
               onChange={(event) => handleChangeField(index, 'type', event.target.value)}
-              className="mr-2 mt-1 block w-1/2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className={`mr-2 ml-2 mt-1 block w-1/2 ${slClasses}`}
             >
               <option value="">Select type</option>
               <option value="Integer">Integer</option>
@@ -97,7 +136,13 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors }
       {/* Owner field */}
       <input type="hidden" {...register("owner")} value={owner} />
 
-      <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">{btnText}</button>
+     
+      <button type="submit" 
+      className={`${defClasses} ${isValid ? '' : 'opacity-50 cursor-not-allowed'}`}
+      disabled={!isValid} 
+      >
+        {btnText}
+      </button>
     </form>
     )
   }

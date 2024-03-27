@@ -4,12 +4,14 @@ import CollectionForm from '../components/CollectionForm'
 import { useForm } from 'react-hook-form';
 import $api from '../http';
 import { useAuth } from '../hooks/userAuth';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCollectionPage = () => {
+  const navigate = useNavigate();
 const { 
     register, 
     handleSubmit, 
-    formState: { errors } 
+    formState: { errors, isValid } 
 } = useForm();
 
 const onSubmit = async (data) => {
@@ -21,6 +23,7 @@ const onSubmit = async (data) => {
         console.log(filteredData)
         const response = await $api.post('/collections', filteredData);
         console.log(response)
+        navigate('/collection')
     } catch (error) {
         console.log(error)
     }
@@ -37,7 +40,7 @@ const { user } = useAuth();
         onSubmit={onSubmit}
         handleSubmit={handleSubmit}
         register={register}
-        formState={{ errors }}
+        formState={{ errors, isValid }}
         btnText={'Create Collection'}
         owner={user.id}
       />

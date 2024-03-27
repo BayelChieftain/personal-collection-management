@@ -9,7 +9,7 @@ class CollectionController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Error during validation', errors.array()));
       }
-      const { name, description, category, imageUrl = null, fields, owner } = req.body;
+      const { name, description, category, fields, imageUrl = '', owner } = req.body;
       const collection = await collectionService.createCollection(name, description, category, imageUrl, fields, owner);
       return res.json(collection);
     } catch (error) {
@@ -64,6 +64,21 @@ class CollectionController {
         return res.json(collections)
     } catch (error) {
       next(error)
+    }
+  }
+
+  async uploadImage(req, res, next) {
+    try {
+      if (!req.file) {
+        return res.status(200).send('Image uploaded successfully.');
+      }
+      
+     // const imageUrl = `${req.protocol}://${req.hostname}/${req.file.path.replace(/\\/g, '/')}`; // for hosting
+     const imageUrl = `${req.protocol}://${req.get('host')}/${req.file.path.replace(/\\/g, '/')}`; // for develop
+  
+      return res.json(imageUrl);
+    } catch (error) {
+      next(error);
     }
   }
 }

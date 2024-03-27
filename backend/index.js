@@ -14,7 +14,9 @@ app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true,
-  }));
+}));
+
+app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
     console.log(req);
@@ -32,7 +34,7 @@ mongoose
         app.use('/api', regRoutes)
         app.use(errorMiddleware);
         app.listen(PORT, () => {
-            console.log(`App is listening to port ${PORT}`);
+            console.log(`App is listening to port ${PORT || process.env.PORT}`);
         });
     })
     .catch((eror) => {

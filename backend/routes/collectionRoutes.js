@@ -2,6 +2,7 @@ import express from 'express';
 import { collectionController } from '../controllers/collectionController.js';
 import { body } from 'express-validator';
 import authMiddleware from '../middlewares/authMiddleware.js';
+import upload from '../middlewares/multerFile.js';
 
 const router = express.Router();
 
@@ -21,4 +22,5 @@ router.delete('/collections/:collectionId', authMiddleware, collectionController
 router.get('/collections', collectionController.getCollections);
 router.get('/collections/my/:userId', authMiddleware, collectionController.getCollectionByOwner);
 
+router.post('/upload', upload.single('imageUrl'), collectionController.uploadImage)
 export default router;

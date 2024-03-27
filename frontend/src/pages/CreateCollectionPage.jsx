@@ -14,8 +14,12 @@ const {
 
 const onSubmit = async (data) => {
     try {
-        console.log(data)
-        const response = await $api.post('/collections', data);
+      const filteredData = {
+        ...data,
+        fields: data.fields.filter(field => field.name.trim() !== '' && field.type.trim() !== '')
+      };
+        console.log(filteredData)
+        const response = await $api.post('/collections', filteredData);
         console.log(response)
     } catch (error) {
         console.log(error)
@@ -34,7 +38,7 @@ const { user } = useAuth();
         handleSubmit={handleSubmit}
         register={register}
         formState={{ errors }}
-        btnText={'Add Collection'}
+        btnText={'Create Collection'}
         owner={user.id}
       />
     </div>

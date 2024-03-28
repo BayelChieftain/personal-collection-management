@@ -8,6 +8,7 @@ import CollectionPage from './pages/CollectionPage';
 import { useAuth } from './hooks/userAuth';
 import CreateCollectionPage from './pages/CreateCollectionPage';
 import CreateItemPage from './pages/CreateItemPage';
+import CollectionDetailsPage from './pages/CollectionDetailsPage';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
       { isAuth && <Route path='/collection' element={<CollectionPage />} />}
       <Route path='/create-collection' element={<CreateCollectionPage />} />
       <Route path='/create-item' element={<CreateItemPage />} />
+      <Route path="collection/:id" element={<CollectionDetailsPage />} />
     </Routes>
 
   )

@@ -16,7 +16,7 @@ router.put('/collections/items/:itemId', authMiddleware, itemController.updateIt
 router.delete('/collections/items/:itemId', authMiddleware, itemController.deleteItem);
 router.get('/collections/:collectionId/items', authMiddleware, itemController.getItemsInCollection); // get all items in col.
 
-router.get('/collections/items/:itemId', itemController.getItemById);
+router.get('/collections/items/:itemId', authMiddleware, itemController.getItemById);
 router.get('/items/latest', itemController.getItems);
 
 export default router;

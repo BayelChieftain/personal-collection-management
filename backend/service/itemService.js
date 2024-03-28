@@ -62,7 +62,11 @@ class ItemService {
 
   async getAllItems() {
    try {
-    const items = await Item.find();
+    const startDate = new Date(startTime);
+    const endDate = new Date(endTime);
+    const items = await Item.find({
+      createdAt: { $gte: startDate, $lte: endDate }
+    });
     return items;
    } catch (er) {
      throw er

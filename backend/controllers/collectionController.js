@@ -40,8 +40,8 @@ class CollectionController {
 
   async getCollections(req, res, next) {
     try {
-      const collections = await collectionService.getCollections();
-      return res.json(collections);
+      const largestCollections = await collectionService.getCollections();
+      return res.json(largestCollections);
     } catch (error) {
       next(error);
     }

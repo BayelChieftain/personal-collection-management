@@ -19,8 +19,8 @@ router.get('/collections/:collectionId', authMiddleware, collectionController.ge
 router.put('/collections/:collectionId', authMiddleware, collectionController.updateCollection);
 router.delete('/collections/:collectionId', authMiddleware, collectionController.deleteCollection);
 
-router.get('/collections', collectionController.getCollections);
+router.get('/collections/largest', collectionController.getCollections);
 router.get('/collections/my/:userId', authMiddleware, collectionController.getCollectionByOwner);
 
-router.post('/upload', upload.single('imageUrl'), collectionController.uploadImage)
+router.post('/upload', authMiddleware, upload.single('imageUrl'), collectionController.uploadImage)
 export default router;

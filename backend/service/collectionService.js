@@ -43,7 +43,9 @@ class CollectionService {
   async getCollections() {
     try {
         const collections = await Collection.find();
-        return collections;
+        const sortedCollections = collections.sort((a, b) => b.fields.length - a.fields.length);
+        const largestCollections = sortedCollections.slice(0, 5);
+        return largestCollections
       } catch (error) {
         throw error;
       }

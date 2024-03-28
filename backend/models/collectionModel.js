@@ -20,7 +20,7 @@ const collectionSchema = mongoose.Schema({
 
 const itemSchema = mongoose.Schema({
   name: { type: String, required: true },
-  tags: [{ type: String }],
+  tags: [{ type: String, required: true }],
   collectionRef: { type: Schema.Types.ObjectId, ref: 'Collection', required: true },
   imageUrl: { type: String },
   dynamicFields: [{

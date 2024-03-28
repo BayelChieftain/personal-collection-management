@@ -53,7 +53,7 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors, 
     data.imageUrl = imageUrlfr;
     onSubmit(data);
   };
-  
+
     return (
       <form onSubmit={handleSubmit(handleFormSubmit)} className="max-w-lg mx-auto">
       <div className="mb-4">
@@ -61,13 +61,13 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors, 
         <input type="text" id="name" {...register("name", { required: true })} className={brClasses} />
         {errors.name && <span className="text-red-500">Name is required</span>}
       </div>
-
+    
       <div className="mb-4">
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description:</label>
         <textarea id="description" {...register("description", { required: true })} className={brClasses} />
         {errors.description && <span className="text-red-500">Description is required</span>}  
       </div>
-
+      
       <div className="mb-4">
         <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category:</label>
         <select id="category" {...register("category", { required: true })} className={slClasses}>
@@ -87,7 +87,13 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors, 
         id="imageUrl" 
         {...register("imageUrl")} 
         onChange={handleFileChange} 
-        className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        className="appearance-none hidden w-full text-sm text-gray-900 border border-purple-300 rounded-lg cursor-pointer bg-purple-50 dark:text-gray-400 focus:outline-none dark:bg-purple-700 dark:border-purple-600 dark:placeholder-gray-400"
+        aria-describedby="file_input_help"
+         />
+        <label htmlFor="imageUrl" className='group relative w-full flex justify-center py-1 px-3 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white bg-purple-600 cursor-pointer hover:bg-purple-700'>
+          Upload Image
+        </label>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG, JPEG</p>
       </div>
 
       <div className="mb-4">
@@ -131,7 +137,7 @@ const CollectionForm = ({onSubmit, register, handleSubmit, formState: { errors, 
         >
           Add Field
         </button>
-      </div>
+      </div>      
 
       {/* Owner field */}
       <input type="hidden" {...register("owner")} value={owner} />

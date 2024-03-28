@@ -7,6 +7,7 @@ import AdminPage from './pages/AdminPage';
 import CollectionPage from './pages/CollectionPage';
 import { useAuth } from './hooks/userAuth';
 import CreateCollectionPage from './pages/CreateCollectionPage';
+import CreateItemPage from './pages/CreateItemPage';
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
       <Route path='/adminDashboard' element={<AdminPage />} />
       { isAuth && <Route path='/collection' element={<CollectionPage />} />}
       <Route path='/create-collection' element={<CreateCollectionPage />} />
+      <Route path='/create-item' element={<CreateItemPage />} />
     </Routes>
 
   )

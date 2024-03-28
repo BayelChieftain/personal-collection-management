@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  collectionIds: [],
+  collections: [],
   itemIds: [],
 };
 
@@ -9,11 +9,11 @@ const idSlice = createSlice({
     name: 'ids',
     initialState,
     reducers: {
-      addCollectionId(state, action) {
-        state.collectionIds.push(action.payload);
+      addCollection(state, action) {
+        state.collections.push({ id: action.payload._id, name: action.payload.name });
       },
-      removeCollectionId(state, action) {
-        state.collectionIds = state.collectionIds.filter(id => id !== action.payload);
+      removeCollection(state, action) {
+        state.collections = []
       },
       addItemId(state, action) {
         state.itemIds.push(action.payload);
@@ -22,8 +22,8 @@ const idSlice = createSlice({
         state.itemIds = state.itemIds.filter(id => id !== action.payload);
       },
     }
-  });
+});
 
-export const { addCollectionId, removeCollectionId, addItemId, removeItemId } = idSlice.actions;
+export const { addCollection, removeCollection, addItemId, removeItemId } = idSlice.actions;
 
 export default idSlice.reducer;

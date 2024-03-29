@@ -8,6 +8,7 @@ import errorMiddleware from './middlewares/errorMiddleware.js';
 import collectionRoutes from './routes/collectionRoutes.js';
 import itemRoutes from './routes/itemRouter.js';
 
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());

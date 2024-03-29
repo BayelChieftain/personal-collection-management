@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://unrivaled-taffy-76f82e.netlify.app', 
+    origin: 'https://660678c50a8a02b571cbf14c--marvelous-mousse-4c54c5.netlify.app', 
     credentials: true,
 }));
 

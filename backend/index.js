@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://marvelous-mousse-4c54c5.netlify.app', 
+    origin: 'https://endearing-brioche-c0ab63.netlify.app', 
     credentials: true,
 }));
 

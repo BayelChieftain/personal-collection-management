@@ -22,5 +22,6 @@ router.delete('/collections/:collectionId', authMiddleware, collectionController
 router.get('/collections/largest', collectionController.getCollections);
 router.get('/collections/my/:userId', authMiddleware, collectionController.getCollectionByOwner);
 
-router.post('/upload', authMiddleware, upload.single('imageUrl'), collectionController.uploadImage)
+router.post('/upload', authMiddleware, upload.single('imageUrl'), collectionController.uploadImage);
+router.get('/users/:userId/role', authMiddleware, collectionController.getUserRole);
 export default router;

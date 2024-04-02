@@ -81,6 +81,15 @@ class CollectionController {
       next(error);
     }
   }
+   async getUserRole(req, res, next) {
+    try {
+      const { userId } = req.params;
+      const role = await collectionService.getUserRole(userId);
+      return res.json({ role });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const collectionController = new CollectionController();

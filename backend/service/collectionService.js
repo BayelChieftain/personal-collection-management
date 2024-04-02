@@ -71,6 +71,17 @@ class CollectionService {
       throw error
     }
   }
+  async getUserRole(userId) {
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        throw ApiError.BadRequest('User not found');
+      }
+      return user.role;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const collectionService = new CollectionService();
